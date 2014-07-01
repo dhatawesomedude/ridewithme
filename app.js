@@ -4,25 +4,70 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var url = require('url');
+var router = express.Router();
 
+/*
+ * Routes
+ */
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var rTrips = require('./routes/trips');
+
+/*
+ *mongoose connection
+ */
+var dbURI = "mongodb://codeorigin:codeorigincatwithninelives@kahana.mongohq.com:10006/carpool";
+
+mongoose.connect(process.env.MONGOHQ_URL || dbURI);
+//successful mongoose connection
+mongoose.connection.on('connected', function(){
+    console.log('Mongoose connected to' + dbURI)
+});
+mongoose.connection.on('disconnected', function(){
+    console.log('Mongoose disconnected');
+});
+//Close mongoose connection if node process ends
+process.on('SIGINT', function(){
+    mongoose.connection.close(function(){
+        console.log('Mongoose default connection disconnected through app termination');
+        process.exit(0);
+    })
+});
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+/*app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');*/
 
 app.use(favicon());
-app.use(logger('dev'));
+//development only logger
+if ('test' != app.get('env'))
+{
+    app.use(logger('dev'));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+
+//app.use('/', routes);
+//app.use('/users', users);
+
+/**
+ * REST API
+ */
+router.post('/trips/find', rTrips.find);
+app.use('/', router);
+
+
+router.get('*', function(req, res){
+    res.sendfile('./public/index.html');
+});
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

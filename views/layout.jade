@@ -1,7 +1,10 @@
 doctype html
-html
+html(data-ng-app='ClientApp')
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+  body(data-ng-controller='MainController')
     block content
+    script(src='libs/angular/angular.min.js')
+    script(src='javascripts/client.js')
+    script(src='javascripts/controllers/mainCtrl.js')

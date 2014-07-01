@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html data-ng-app="ClientApp">
+<head>
+    <title>Car-Pool</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <base href="/">
+</head>
+<body data-ng-controller="MainController">
+<h1>Car-Pool</h1>
+<p>Welcome to Car-Pool</p>
+<div>
+    <form>
+        <label for="dep"></label>
+        <p>
+            <strong>Depature Point: </strong>
+            <input type="text" name="location" id="dep" ng-model="depature">
+        </p>
+        <p>{{depature}}</p>
+        <br>
+        <label for="dest"></label>
+        <p>
+            <strong>Destination Point:</strong>
+            <input type="text" name="location" id="dest" ng-model="destination">
+        </p>
+        <p>{{destination}}</p>
+        <br>
+    </form>
+</div>
+<div ng-view>
+
+</div>
+<script src="libs/angular/angular.min.js"></script>
+<script src="javascripts/client.js"></script>
+<script src="javascripts/controllers/mainCtrl.js"></script>
+</body>
+</html>

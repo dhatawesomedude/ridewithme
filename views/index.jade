@@ -3,3 +3,16 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  div
+      form
+            label(for="dep" )
+            p <strong>Depature Point: </strong> <input type="text" name="location" id="dep" ng-model="depature">
+            p {{depature}}
+            br
+            label(for="dest" )
+            p <strong>Destination Point:</strong> <input type="text" name="location" id="dest" ng-model="destination">
+            p {{destination}}
+            br
+
+  div(ng-view)
+
