@@ -18,7 +18,7 @@ var rTrips = require('./routes/trips');
 /*
  *mongoose connection
  */
-var dbURI = "mongodb://codeorigin:codeorigincatwithninelives@kahana.mongohq.com:10006/carpool";
+
 
 mongoose.connect(process.env.MONGOHQ_URL || dbURI);
 //successful mongoose connection
