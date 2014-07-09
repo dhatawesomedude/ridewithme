@@ -53,7 +53,7 @@ exports.findTrip = function(params){
     var options = createOptions(params);
 
     this.databaseQuery({destination : params.destination, depature : params.depature}, options).then(function(results){
-            console.log(results);
+
         var trips = [];
         results.forEach(function(obj)
         {
